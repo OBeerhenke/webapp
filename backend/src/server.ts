@@ -49,11 +49,11 @@ app.use((err: any, req: Request, res: Response, next: any) => {
 // Start server
 const PORT = process.env.PORT || 3001;
 
-httpServer.listen(PORT, () => {
+httpServer.listen(PORT, '0.0.0.0', () => {
   console.log('╔════════════════════════════════════════════════════════╗');
   console.log('║  IDP Mobile Backend Server                             ║');
   console.log('╚════════════════════════════════════════════════════════╝');
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
   console.log(`📡 WebSocket enabled`);
   console.log(`🔧 Mode: ${process.env.USE_MOCK_HYLAND === 'true' ? 'MOCK' : 'PRODUCTION'}`);
   console.log(`📊 API endpoints:`);
