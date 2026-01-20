@@ -124,6 +124,25 @@ export const CaptureView: React.FC = () => {
           ref={camera}
           aspectRatio="cover"
           facingMode="environment"
+          numberOfCamerasCallback={(numberOfCameras) => console.log('Available cameras:', numberOfCameras)}
+          videoSourceDeviceId={undefined}
+          videoReadyCallback={() => {
+            console.log('Camera ready');
+            // Request highest quality video stream
+            if (camera.current?.stream) {
+              const videoTrack = camera.current.stream.getVideoTracks()[0];
+              const capabilities = videoTrack.getCapabilities();
+              console.log('Camera capabilities:', capabilities);
+              
+              if (capabilities.width && capabilities.height) {
+                videoTrack.applyConstraints({
+                  width: { ideal: capabilities.width.max || 1920 },
+                  height: { ideal: capabilities.height.max || 1080 },
+                  facingMode: 'environment'
+                }).catch(err => console.warn('Could not apply constraints:', err));
+              }
+            }
+          }}
           errorMessages={{
             noCameraAccessible: 'No camera device accessible. Please connect your camera or try a different browser.',
             permissionDenied: 'Permission denied. Please refresh and give camera permission.',
