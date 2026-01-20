@@ -47,7 +47,7 @@ app.use((err: any, req: Request, res: Response, next: any) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3001;
+const PORT = parseInt(process.env.PORT || '3001', 10);
 
 // Add startup error handling
 process.on('uncaughtException', (error) => {
