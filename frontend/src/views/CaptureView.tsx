@@ -19,8 +19,8 @@ export const CaptureView: React.FC = () => {
       setIsCapturing(true);
       setError(null);
 
-      // Capture photo
-      const photo = camera.current.takePhoto();
+      // Capture photo with maximum quality
+      const photo = camera.current.takePhoto('jpeg', 1.0); // quality = 1.0 (max)
 
       // Show scanning animation (simulated)
       await new Promise((resolve) => setTimeout(resolve, 800));
@@ -253,11 +253,12 @@ export const CaptureView: React.FC = () => {
             </svg>
           </motion.button>
 
-          {/* Hidden file input */}
+          {/* Hidden file input - use native camera for best quality */}
           <input
             ref={fileInputRef}
             type="file"
-            accept="image/*,application/pdf"
+            accept="image/*"
+            capture="environment"
             onChange={handleFileSelect}
             className="hidden"
           />
