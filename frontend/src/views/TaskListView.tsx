@@ -357,10 +357,10 @@ export const TaskListView: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-midnight pt-6 pb-24 px-4">
+    <div className="min-h-screen bg-midnight pt-safe pb-24 px-4">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-shadow-glow">Task List</h1>
+      <div className="flex items-center justify-between mb-6 pt-4">
+        <h1 className="text-3xl font-bold text-shadow-glow">Tasks</h1>
 
         {/* Selection mode toolbar */}
         {selectionMode && (
@@ -508,19 +508,20 @@ export const TaskListView: React.FC = () => {
 
       {/* Empty state */}
       {documents?.length === 0 && (
-        <GlassCard className="p-8 text-center">
-          <svg className="w-16 h-16 mx-auto mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        <GlassCard className="p-12 text-center">
+          <svg className="w-24 h-24 mx-auto mb-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <p className="text-gray-400 mb-4">No documents yet</p>
+          <h3 className="text-xl font-bold text-white mb-2">No documents yet</h3>
+          <p className="text-gray-400 mb-8 text-sm">Start by capturing your first document</p>
           <button
             onClick={() => navigate('/camera')}
-            className="btn-primary"
+            className="w-full px-6 py-4 bg-gradient-to-r from-neon-teal to-neon-blue text-white font-semibold rounded-xl shadow-lg shadow-neon-glow/30 active:scale-95 transition-transform"
           >
             Capture Document
           </button>
         </GlassCard>
-      )}
+      )}}
 
       {/* Delete Confirmation Dialog */}
       <AnimatePresence>
@@ -540,40 +541,38 @@ export const TaskListView: React.FC = () => {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md mx-4"
+              className="fixed inset-x-4 top-1/2 -translate-y-1/2 z-50 max-w-sm mx-auto"
             >
               <GlassCard className="p-6">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white mb-2">
-                      {selectedIds.size > 0 ? 'Delete Documents?' : 'Delete Document?'}
-                    </h3>
-                    <p className="text-sm text-gray-400">
-                      {selectedIds.size > 0
-                        ? `Are you sure you want to delete ${selectedIds.size} document${selectedIds.size > 1 ? 's' : ''}? This action cannot be undone.`
-                        : 'Are you sure you want to delete this document? This action cannot be undone.'}
-                    </p>
-                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">
+                    {selectedIds.size > 0 ? 'Delete Documents?' : 'Delete Document?'}
+                  </h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">
+                    {selectedIds.size > 0
+                      ? `Are you sure you want to delete ${selectedIds.size} document${selectedIds.size > 1 ? 's' : ''}? This action cannot be undone.`
+                      : 'Are you sure you want to delete this document? This action cannot be undone.'}
+                  </p>
                 </div>
 
-                <div className="flex gap-3">
-                  <button
-                    onClick={handleCancelDelete}
-                    className="flex-1 px-4 py-2 glass-card hover:bg-midnight-lighter/50 transition-colors rounded-lg"
-                  >
-                    Cancel
-                  </button>
+                <div className="flex flex-col gap-3">
                   <button
                     onClick={selectedIds.size > 0 ? handleConfirmBulkDelete : handleConfirmDelete}
                     disabled={deleteDocument.isPending}
-                    className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-lg font-semibold text-white"
+                    className="w-full px-6 py-4 bg-red-500 hover:bg-red-600 active:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-xl font-semibold text-white text-base"
                   >
                     {deleteDocument.isPending ? 'Deleting...' : 'Delete'}
+                  </button>
+                  <button
+                    onClick={handleCancelDelete}
+                    className="w-full px-6 py-4 glass-card hover:bg-midnight-lighter/50 active:bg-midnight-lighter/70 transition-colors rounded-xl font-medium text-base"
+                  >
+                    Cancel
                   </button>
                 </div>
               </GlassCard>

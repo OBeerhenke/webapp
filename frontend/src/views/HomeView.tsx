@@ -70,11 +70,11 @@ export const HomeView: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-midnight pt-12 pb-24 px-4">
+    <div className="min-h-screen bg-midnight pt-safe pb-24 px-4">
       {/* Header */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-12 pt-8">
         <motion.h1
-          className="text-4xl font-bold text-white mb-2 text-shadow-glow"
+          className="text-5xl font-bold text-white mb-3 text-shadow-glow"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -82,7 +82,7 @@ export const HomeView: React.FC = () => {
           IDP Mobile
         </motion.h1>
         <motion.p
-          className="text-gray-400 text-sm"
+          className="text-gray-400"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -101,14 +101,14 @@ export const HomeView: React.FC = () => {
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <GlassCard
-              className={`p-6 cursor-pointer transition-all hover:scale-[1.02] bg-gradient-to-br ${card.gradient}`}
+              className={`p-8 cursor-pointer transition-all active:scale-95 hover:scale-[1.02] bg-gradient-to-br ${card.gradient}`}
               onClick={() => navigate(card.path)}
               glow
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-6">
                 <div className="flex-shrink-0">{card.icon}</div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-white mb-1">{card.title}</h3>
+                  <h3 className="text-xl font-bold text-white mb-1">{card.title}</h3>
                   <p className="text-sm text-gray-400">{card.description}</p>
                 </div>
                 <svg

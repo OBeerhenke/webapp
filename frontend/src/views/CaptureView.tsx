@@ -57,10 +57,10 @@ export const CaptureView: React.FC = () => {
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-gradient-to-br from-midnight via-midnight-lighter to-midnight">
       {/* Top navigation */}
-      <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-6">
+      <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-6 pt-safe">
         <button
           onClick={() => navigate('/tasks')}
-          className="glass-card p-3 rounded-xl hover:bg-midnight-lighter/50 transition-colors"
+          className="glass-card p-3 rounded-xl hover:bg-midnight-lighter/50 active:bg-midnight-lighter/70 transition-colors"
         >
           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -71,7 +71,7 @@ export const CaptureView: React.FC = () => {
         
         <button
           onClick={() => navigate('/settings')}
-          className="glass-card p-3 rounded-xl hover:bg-midnight-lighter/50 transition-colors"
+          className="glass-card p-3 rounded-xl hover:bg-midnight-lighter/50 active:bg-midnight-lighter/70 transition-colors"
         >
           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
