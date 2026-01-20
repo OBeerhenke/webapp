@@ -4,7 +4,7 @@ providers = ["node"]
 nixPkgs = ["nodejs_18"]
 
 [phases.build]
-cmds = ["cd frontend && npm ci && npm run build"]
+cmds = ["npm ci && npm run build"]
 
 [start]
-cmd = "cd frontend && npx vite preview --host 0.0.0.0 --port $PORT"
+cmd = "npx vite preview --host 0.0.0.0 --port $PORT"
