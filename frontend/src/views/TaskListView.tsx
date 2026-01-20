@@ -140,7 +140,7 @@ export const TaskListView: React.FC = () => {
     const isSelected = selectedIds.has(doc.id);
     const [touchStart, setTouchStart] = useState(0);
     const [touchEnd, setTouchEnd] = useState(0);
-    const [longPressTimer, setLongPressTimer] = useState<NodeJS.Timeout | null>(null);
+    const [longPressTimer, setLongPressTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
     const handleTouchStart = (e: React.TouchEvent) => {
       setTouchStart(e.targetTouches[0].clientX);
