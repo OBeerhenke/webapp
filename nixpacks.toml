@@ -1,13 +1,10 @@
 providers = ["node"]
 
 [phases.setup]
-nixPkgs = ["nodejs_18", "npm"]
+nixPkgs = ["nodejs_18"]
 
 [phases.build]
 cmds = ["cd backend && npm ci && npx prisma generate && npm run build"]
 
-[phases.deploy]
-cmds = ["cd backend && npx prisma migrate deploy && node dist/server.js"]
-
 [start]
-cmd = "cd backend && node dist/server.js"
+cmd = "cd backend && npx prisma migrate deploy && node dist/server.js"
