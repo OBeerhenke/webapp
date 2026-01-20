@@ -521,7 +521,7 @@ export const TaskListView: React.FC = () => {
             Capture Document
           </button>
         </GlassCard>
-      )}}
+      )}
 
       {/* Delete Confirmation Dialog */}
       <AnimatePresence>
