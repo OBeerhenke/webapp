@@ -1,0 +1,39 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Document {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Document metadata
+  status       String  // "uploading", "processing", "completed", "failed"
+  documentType String? // Auto-detected: "invoice", "resume", etc.
+  imageUrl     String? // Path to stored image
+  imageBase64  String? // Original image data
+  thumbnailUrl String? // Generated thumbnail
+
+  // Hyland references
+  hylandDocId String? // Document ID in Hyland Content API
+
+  // Extraction results (stored as JSON string in SQLite)
+  extractedData String? // Generic JSON object with extracted fields
+  confidence    Float?  // Overall confidence score (0-100)
+
+  // Timestamps
+  uploadedAt          DateTime?
+  processingStartedAt DateTime?
+  completedAt         DateTime?
+
+  // Error handling
+  errorMessage String?
+  retryCount   Int     @default(0)
+}
