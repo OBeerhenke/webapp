@@ -49,6 +49,17 @@ app.use((err: any, req: Request, res: Response, next: any) => {
 // Start server
 const PORT = process.env.PORT || 3001;
 
+// Add startup error handling
+process.on('uncaughtException', (error) => {
+  console.error('UNCAUGHT EXCEPTION:', error);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('UNHANDLED REJECTION at:', promise, 'reason:', reason);
+  process.exit(1);
+});
+
 httpServer.listen(PORT, '0.0.0.0', () => {
   console.log('╔════════════════════════════════════════════════════════╗');
   console.log('║  IDP Mobile Backend Server                             ║');
@@ -57,13 +68,16 @@ httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`📡 WebSocket enabled`);
   console.log(`🔧 Mode: ${process.env.USE_MOCK_HYLAND === 'true' ? 'MOCK' : 'PRODUCTION'}`);
   console.log(`📊 API endpoints:`);
-  console.log(`   - POST   http://localhost:${PORT}/api/documents/upload`);
-  console.log(`   - GET    http://localhost:${PORT}/api/documents`);
-  console.log(`   - GET    http://localhost:${PORT}/api/documents/:id`);
-  console.log(`   - DELETE http://localhost:${PORT}/api/documents/:id`);
-  console.log(`   - POST   http://localhost:${PORT}/api/webhook/hyland/extraction`);
-  console.log(`   - GET    http://localhost:${PORT}/api/health`);
+  console.log(`   - POST   http://0.0.0.0:${PORT}/api/documents/upload`);
+  console.log(`   - GET    http://0.0.0.0:${PORT}/api/documents`);
+  console.log(`   - GET    http://0.0.0.0:${PORT}/api/documents/:id`);
+  console.log(`   - DELETE http://0.0.0.0:${PORT}/api/documents/:id`);
+  console.log(`   - POST   http://0.0.0.0:${PORT}/api/webhook/hyland/extraction`);
+  console.log(`   - GET    http://0.0.0.0:${PORT}/api/health`);
   console.log('');
+}).on('error', (error) => {
+  console.error('SERVER START ERROR:', error);
+  process.exit(1);
 });
 
 // Graceful shutdown
